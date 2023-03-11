@@ -9,9 +9,7 @@ export const SideBar = () => {
           ? 'w-56 absolute shadow-2xl shadow-indigo-700 transition duration-300'
           : 'w-11 fixed transition duration-300'
       }`}>
-      <button
-        className='mt-3'
-        onClick={() => setActiveBar(!activeBar)}>
+      <button className='mt-3' onClick={() => setActiveBar(!activeBar)}>
         <div
           className={`bg-white w-8 h-1 m-1 ${
             activeBar
