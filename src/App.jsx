@@ -1,7 +1,8 @@
+import { VectorRoutes } from "./routes/VectorRoutes"
 
 export const App = () => {
   return (
-    <h1 >App</h1>
+    <VectorRoutes />
   )
 }
 
