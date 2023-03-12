@@ -5,8 +5,8 @@ export const SignIn = () => {
   const [active, setActive] = useState(true);
 
   return (
-    <div className='flex items-center flex-col justify-center h-full mt-20'>
-      <div className='border border-solid border-violet-800 p-9 rounded-md flex justify-center flex-col items-center'>
+    <div className='mt-20 flex h-full flex-col items-center justify-center'>
+      <div className='flex flex-col items-center justify-center rounded-md border border-solid border-violet-800 p-9'>
         {!active ? (
           <Create active={active} setActive={setActive} />
         ) : (

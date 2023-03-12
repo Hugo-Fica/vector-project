@@ -1,60 +1,61 @@
 import { useState } from 'react';
+import { ModalEquipVector, ModalFixedFacility } from './';
 
 export const SideBar = () => {
   const [activeBar, setActiveBar] = useState(false);
   return (
     <div
-      className={`bg-indigo-700  min-h-screen flex flex-col items-center  ${
+      className={`flex  min-h-screen flex-col items-center bg-indigo-700  ${
         activeBar
-          ? 'w-56 absolute shadow-2xl shadow-indigo-700 transition duration-300'
-          : 'w-11 fixed transition duration-300'
+          ? 'absolute w-56 shadow-2xl shadow-indigo-700 transition duration-300'
+          : 'fixed w-11 transition duration-300'
       }`}>
       <button className='mt-3' onClick={() => setActiveBar(!activeBar)}>
         <div
-          className={`bg-white w-8 h-1 m-1 ${
+          className={`m-1 h-1 w-8 bg-white ${
             activeBar
-              ? '-rotate-45 translate-y-2 transition duration-300'
+              ? 'translate-y-2 -rotate-45 transition duration-300'
               : 'transition duration-300'
           }`}
         />
         <div
-          className={`bg-white w-8 h-1 m-1 ${
+          className={`m-1 h-1 w-8 bg-white ${
             activeBar
               ? 'opacity-0 transition duration-300'
               : 'transition duration-300'
           }`}
         />
         <div
-          className={`bg-white w-8 h-1 m-1 ${
+          className={`m-1 h-1 w-8 bg-white ${
             activeBar
-              ? 'rotate-45 -translate-y-2 transition duration-300'
+              ? '-translate-y-2 rotate-45 transition duration-300'
               : 'transition duration-300'
           }`}
         />
       </button>
-      <h1 className='text-4xl font-bold mt-6'>{activeBar ? 'Menu' : 'M'}</h1>
-      <div className={`h-1 bg-white mt-8 ${activeBar ? 'w-48' : 'w-8'}`} />
+      <h1 className='mt-6 text-4xl font-bold'>{activeBar ? 'Menu' : 'M'}</h1>
+      <div className={`mt-8 h-1 bg-white ${activeBar ? 'w-48' : 'w-8'}`} />
       <div className={`mt-5 border-solid border-white ${activeBar ? '' : ''}`}>
         <div className=''>
-          <h1 className='text-xl text-center font-bold '>
+          <h1 className='text-center text-xl font-bold '>
             {activeBar ? 'Vectors' : 'V'}
           </h1>
           <div className='flex flex-col items-center'>
-            {/* <ModalEquipVector
-                            activeBar={activeBar}
-                            setActiveBar={setActiveBar}
-                        />
-                        <ModalFixedFacility
-                            activeBar={activeBar}
-                            setActiveBar={setActiveBar}
-                        /> */}
+            <ModalEquipVector
+              activeBar={activeBar}
+              setActiveBar={setActiveBar}
+            />
+            <ModalFixedFacility
+              activeBar={activeBar}
+              setActiveBar={setActiveBar}
+            />
             <button className={`${activeBar ? '' : 'text-sm'}`}>
               {activeBar ? 'Section' : 'S'}
             </button>
           </div>
         </div>
         <div className='mt-3'>
-          <h1 className='text-xl text-center font-bold '>
+          <h1 className='text-center text-xl font-bold '>
             {activeBar ? 'Area' : 'A'}
           </h1>
           <div className='flex flex-col'>
@@ -65,7 +66,7 @@ export const SideBar = () => {
           </div>
         </div>
         <div className='mt-3'>
-          <h1 className='text-xl text-center font-bold '>
+          <h1 className='text-center text-xl font-bold '>
             {activeBar ? 'Intake Return' : 'IR'}
           </h1>
           <div className='flex flex-col'>
@@ -76,9 +77,9 @@ export const SideBar = () => {
           </div>
         </div>
       </div>
-      <div className={`h-1 bg-white mt-8 ${activeBar ? 'w-48' : 'w-8'}`} />
+      <div className={`mt-8 h-1 bg-white ${activeBar ? 'w-48' : 'w-8'}`} />
       <div className='mt-3'>
-        <h1 className='text-xl text-center font-bold '>
+        <h1 className='text-center text-xl font-bold '>
           {activeBar ? 'Graphs' : 'G'}
         </h1>
         <div className='flex flex-col'>
@@ -96,9 +97,9 @@ export const SideBar = () => {
           </button>
         </div>
       </div>
-      <div className={`h-1 bg-white mt-8 ${activeBar ? 'w-48' : 'w-8'}`} />
+      <div className={`mt-8 h-1 bg-white ${activeBar ? 'w-48' : 'w-8'}`} />
       <div className=''>
-        <h1 className='text-xl text-center font-bold mt-5'>
+        <h1 className='mt-5 text-center text-xl font-bold'>
           {activeBar ? 'Units' : 'U'}
         </h1>
         <div className='flex flex-col'>
@@ -111,7 +112,7 @@ export const SideBar = () => {
         </div>
       </div>
       <div className='mt-5'>
-        <h1 className='text-xl text-center font-bold'>
+        <h1 className='text-center text-xl font-bold'>
           {activeBar ? 'Settings' : 'S'}
         </h1>
         <div className='flex flex-col'>

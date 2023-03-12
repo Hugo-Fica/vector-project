@@ -16,5 +16,6 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'array-callback-return': 'off',
+    'react/prop-types': 'off',
   },
 };
