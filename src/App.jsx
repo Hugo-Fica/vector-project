@@ -1,8 +1,5 @@
-import { VectorRoutes } from "./routes/VectorRoutes"
+import { VectorRoutes } from './routes/VectorRoutes';
 
 export const App = () => {
-  return (
-    <VectorRoutes />
-  )
-}
-
+  return <VectorRoutes />;
+};

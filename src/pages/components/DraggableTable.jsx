@@ -38,17 +38,29 @@ export const DraggableTable = () => {
       },
     });
   };
+
+  // const prueba = data
+  //   .map((d) => d.vector.map((v) => v.id))
+  //   .filter((x, prueba) => x.length >= 6);
+  // console.log(prueba);
+
   const dragHandlres = { onStart, onStop };
   return (
-    <div className='flex flex-row p-3'>
+    <div className='flex flex-row p-3 '>
       <div className='flex flex-col'>
+        <div className='mb-3'>
+          <h1 className='text-2xl text-black'>Vector Name</h1>
+        </div>
         {data.map((d) => (
-          <p key={d.id} className='mt-8'>
+          <p key={d.id} className='py-1pt text-lg font-semibold'>
             {d.name}
           </p>
         ))}
       </div>
-      <div className='ml-3 mt-3 flex flex-col'>
+      <div className='ml-12 flex flex-col'>
+        <div className='mb-3'>
+          <h1 className='text-2xl'>Requirement Vector</h1>
+        </div>
         {data.map((d) => (
           <Draggable
             id={d.id}
@@ -60,7 +72,7 @@ export const DraggableTable = () => {
             <div
               id={d.id}
               key={d.id}
-              className='mt-1 w-mc rounded-20xl border-10xl border-violet-800 p-1'>
+              className=' mt-7xl w-mc rounded-20xl border-10xl border-blue-800 p-1'>
               {d.vector.map((v) => (
                 <button
                   disabled={true}
@@ -73,6 +85,7 @@ export const DraggableTable = () => {
             </div>
           </Draggable>
         ))}
+        <div className='mt-3 h-1 max-w-screen-2xl bg-blue-800' />
       </div>
     </div>
   );

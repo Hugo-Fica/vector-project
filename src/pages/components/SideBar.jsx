@@ -2,45 +2,16 @@ import { useState } from 'react';
 import { ModalEquipVector, ModalFixedFacility } from './';
 
 export const SideBar = () => {
-  const [activeBar, setActiveBar] = useState(false);
+  const [activeBar, setActiveBar] = useState(true);
   return (
-    <div
-      className={`flex  min-h-screen flex-col items-center bg-indigo-700  ${
-        activeBar
-          ? 'absolute w-56 shadow-2xl shadow-indigo-700 transition duration-300'
-          : 'fixed w-11 transition duration-300'
-      }`}>
-      <button className='mt-3' onClick={() => setActiveBar(!activeBar)}>
-        <div
-          className={`m-1 h-1 w-8 bg-white ${
-            activeBar
-              ? 'translate-y-2 -rotate-45 transition duration-300'
-              : 'transition duration-300'
-          }`}
-        />
-        <div
-          className={`m-1 h-1 w-8 bg-white ${
-            activeBar
-              ? 'opacity-0 transition duration-300'
-              : 'transition duration-300'
-          }`}
-        />
-        <div
-          className={`m-1 h-1 w-8 bg-white ${
-            activeBar
-              ? '-translate-y-2 rotate-45 transition duration-300'
-              : 'transition duration-300'
-          }`}
-        />
-      </button>
-      <h1 className='mt-6 text-4xl font-bold'>{activeBar ? 'Menu' : 'M'}</h1>
-      <div className={`mt-8 h-1 bg-white ${activeBar ? 'w-48' : 'w-8'}`} />
-      <div className={`mt-5 border-solid border-white ${activeBar ? '' : ''}`}>
-        <div className=''>
-          <h1 className='text-center text-xl font-bold '>
-            {activeBar ? 'Vectors' : 'V'}
+    <div className='flex min-h-screen w-2/12 flex-col items-center bg-blue-900'>
+      <h1 className='mt-6 text-4xl font-bold text-white'>Menu</h1>
+      <div className='mt-5 min-w-full border-solid border-white '>
+        <div className='min-w-full'>
+          <h1 className='text-center text-xl font-semibold text-white '>
+            Vectors
           </h1>
-          <div className='flex flex-col items-center'>
+          <div className='flex w-full flex-col items-center'>
             <ModalEquipVector
               activeBar={activeBar}
               setActiveBar={setActiveBar}
@@ -49,76 +20,46 @@ export const SideBar = () => {
               activeBar={activeBar}
               setActiveBar={setActiveBar}
             />
-            <button className={`${activeBar ? '' : 'text-sm'}`}>
-              {activeBar ? 'Section' : 'S'}
-            </button>
+            <button className='px-18 text-white'>Section</button>
           </div>
         </div>
         <div className='mt-3'>
-          <h1 className='text-center text-xl font-bold '>
-            {activeBar ? 'Area' : 'A'}
-          </h1>
+          <h1 className='text-center text-xl font-bold text-white'>Area</h1>
           <div className='flex flex-col'>
-            <button className={`${activeBar ? '' : 'text-sm'}`}>
-              {activeBar ? 'Create' : 'C'}
-            </button>{' '}
+            <button className='px-18 text-white'>Create</button>
             {/* //? A single element will be created that creates and modifies data */}
           </div>
         </div>
         <div className='mt-3'>
-          <h1 className='text-center text-xl font-bold '>
-            {activeBar ? 'Intake Return' : 'IR'}
+          <h1 className='text-center text-xl font-bold text-white'>
+            Intake Return
           </h1>
           <div className='flex flex-col'>
-            <button className={`${activeBar ? '' : 'text-sm'}`}>
-              {activeBar ? 'Create' : 'C'}
-            </button>{' '}
+            <button className='px-18 text-white'>Create</button>{' '}
             {/* //? A single element will be created that creates and modifies data */}
           </div>
         </div>
       </div>
-      <div className={`mt-8 h-1 bg-white ${activeBar ? 'w-48' : 'w-8'}`} />
       <div className='mt-3'>
-        <h1 className='text-center text-xl font-bold '>
-          {activeBar ? 'Graphs' : 'G'}
-        </h1>
+        <h1 className='text-center text-xl font-bold text-white '>Graphs</h1>
         <div className='flex flex-col'>
-          <button className={`${activeBar ? '' : 'text-sm'}`}>
-            {activeBar ? 'Global Q' : 'GQ'}
-          </button>
-          <button className={`${activeBar ? '' : 'text-sm'}`}>
-            {activeBar ? 'Area Q' : 'AQ'}
-          </button>
-          <button className={`${activeBar ? '' : 'text-sm'}`}>
-            {activeBar ? 'Intake/Return Q' : 'I/KQ'}
-          </button>
-          <button className={`${activeBar ? '' : 'text-sm'}`}>
-            {activeBar ? 'Area Relations' : 'AR'}
-          </button>
+          <button className='text-sm text-white'>Global</button>
+          <button className='text-sm text-white'>Area Q</button>
+          <button className='text-sm text-white'>Intake/Return Q</button>
+          <button className='text-sm text-white'>Area Relations</button>
         </div>
       </div>
-      <div className={`mt-8 h-1 bg-white ${activeBar ? 'w-48' : 'w-8'}`} />
       <div className=''>
-        <h1 className='mt-5 text-center text-xl font-bold'>
-          {activeBar ? 'Units' : 'U'}
-        </h1>
+        <h1 className='mt-5 text-center text-xl font-bold text-white'>Units</h1>
         <div className='flex flex-col'>
-          <button className={`${activeBar ? '' : 'text-sm'}`}>
-            {activeBar ? 'Airflow' : 'A'}
-          </button>
-          <button className={`${activeBar ? '' : 'text-sm'}`}>
-            {activeBar ? 'Air Velocity' : 'AV'}
-          </button>
+          <button className='text-sm text-white'>Airflow</button>
+          <button className='text-sm text-white'>Air Velocity</button>
         </div>
       </div>
       <div className='mt-5'>
-        <h1 className='text-center text-xl font-bold'>
-          {activeBar ? 'Settings' : 'S'}
-        </h1>
+        <h1 className='text-center text-xl font-bold text-white'>Settings</h1>
         <div className='flex flex-col'>
-          <button className={`${activeBar ? '' : 'text-sm'}`}>
-            {activeBar ? 'Leakage' : 'L'}
-          </button>
+          <button className='text-white'>Leakage</button>
         </div>
       </div>
     </div>

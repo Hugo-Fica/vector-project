@@ -14,9 +14,23 @@ module.exports = {
       },
       margin: {
         '5xl': '5px',
+        '6xl': '6px',
+        '7xl': '7px',
         '10xl': '10px',
+        '31xl': '31px',
+        '30xl': '30px',
+        '29xl': '29px',
+        '28xl': '28px',
+      },
+      padding: {
+        19: '5rem',
+        18: '74px',
+        '1pt': '17.01px',
+      },
+      colors: {
+        lsb: '#B0C4DE',
       },
     },
   },
-  plugins: [require('prettier-plugin-tailwindcss')],
+  plugins: ['prettier-plugin-tailwindcss'],
 };

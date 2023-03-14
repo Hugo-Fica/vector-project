@@ -40,11 +40,9 @@ export const ModalFixedFacility = ({ activeBar }) => {
   return (
     <div>
       <button
-        className={`p-1 text-white hover:rounded-md hover:border hover:bg-indigo-900 ${
-          activeBar ? '' : 'text-sm'
-        }`}
+        className={` text-white ${open ? 'bg-blue-800 px-18' : ''}`}
         onClick={handleOpen}>
-        {activeBar ? 'Fixed Facility' : 'FF'}
+        Fixed Facility
       </button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...style, width: 800 }}>
