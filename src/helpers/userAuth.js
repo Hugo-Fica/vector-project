@@ -101,12 +101,13 @@ export const getVectorsValue = async (token = null) => {
 export const putValueVector = async (id = null, valor = null, token = null) => {
   if (!id && !valor && !token) return;
   try {
-    const resp = await axiosVectorValue.put(`/${id}`, valor, {
+    const { data } = await axiosVectorValue.put(`/${id}`, valor, {
       headers: { 'x-token': token },
     });
-    console.log(resp);
+    const { msg } = data;
     return {
       ok: true,
+      msg,
     };
   } catch (err) {
     const { response } = err;

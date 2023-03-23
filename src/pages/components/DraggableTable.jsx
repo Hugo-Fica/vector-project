@@ -38,44 +38,51 @@ export const DraggableTable = () => {
   };
   const handleDrag = (e, ui) => {
     const uidV = e.target.id;
-    const idValue = valueVector.map((x) => x.vector).includes(uidV);
-    const idPos = valueVector
-      .filter((x) => x.vector === uidV)
-      .map((x) => x._id);
-    const pos = valueVector
-      .filter((x) => x.vector === uidV)
-      .map((x) => x.position);
-    if (idValue) {
-      pos[0] += ui.x;
-      const pActual = pos.reduce((prev, curr) => {
-        return ui.x;
-      }, 0);
-      for (let a = 1; a < idPos.length; a++) {
-        pos[a] += pActual;
-      }
-      for (let i = 0; i < idPos.length; i++) {
-        const id = idPos[i];
-        const newValor = pos[i];
-        const valor = { position: newValor };
-        console.log(valor);
-        putValueVector(id, valor, token);
-      }
-    }
-    console.log('valor de X:' + ui.x);
+    // console.log(ui);
     setState({
       deltaPosition: {
         x: ui.x,
         y: ui.y + ui.deltaY,
       },
     });
+    const idPos = valueVector
+      .filter((x) => x.vector === uidV)
+      .map((x) => x._id);
+    const pos = valueVector
+      .filter((x) => x.vector === uidV)
+      .map((x) => x.position);
+    for (let a = 0; a < pos.length; a++) {
+      pos[a] += ui.deltaX;
+    }
+
+    for (let i = 0; i < pos.length; i++) {
+      const id = idPos[i];
+      const newValor = pos[i];
+      const valor = { position: newValor };
+      putValueVector(id, valor, token);
+    }
+    console.log('valor de X:' + ui.x);
   };
+  const newValueVector = {};
+  valueVector.forEach((valVector) => {
+    if (newValueVector[valVector.position]) {
+      newValueVector[valVector.position].push(valVector.value);
+    } else {
+      newValueVector[valVector.position] = [valVector.value];
+    }
+  });
+  const result = Object.keys(newValueVector).map((position) => {
+    const values = newValueVector[position];
+    const sum = values.reduce((total, value) => total + value, 0);
+    return { position: parseInt(position), value: sum };
+  });
   useEffect(() => {
     getVectors(token).then(({ vectors }) => setVector(vectors));
     getVectorsValue(token).then(({ valueVectors }) =>
       setValueVector(valueVectors),
     );
-  }, []);
-
+    console.log('se lanzo');
+  }, [state]);
   const dragHandlres = { onStart, onStop };
   return (
     <div className='flex flex-row p-3 '>
@@ -120,6 +127,13 @@ export const DraggableTable = () => {
           </Draggable>
         ))}
         <div className='mt-3 h-1 max-w-screen-2xl bg-blue-800' />
+        <div>
+          {result.map((x) => (
+            <button className='ml-5' key={x.position}>
+              {x.value}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
