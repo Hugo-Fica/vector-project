@@ -1,58 +1,108 @@
-export const Create = (active, setActive) => {
+import { Alert, Button, Grid, TextField } from '@mui/material';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { registerUser } from '../../helpers/userAuth';
+import { useForm } from '../../hooks/useForm';
+
+const formData = {
+  name: '',
+  email: '',
+  pass: '',
+};
+
+const formValidations = {
+  name: [(value) => value.length > 1, 'field is required'],
+  email: [(value) => value.includes('@'), 'incorrect formatting missing, @'],
+  pass: [(value) => value.length >= 6, 'Must be longer than 6 characters'],
+};
+export const Create = ({ active, setActive }) => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const { status, errorMessage } = useSelector((state) => state.auth);
+  const isChecking = useMemo(() => status === 'checking', [status]);
+
+  const {
+    formState,
+    name,
+    email,
+    pass,
+    onInputChange,
+    isformValid,
+    nameValid,
+    emailValid,
+    passValid,
+  } = useForm(formData, formValidations);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setFormSubmitted(true);
+    if (!isformValid) return;
+    const user = {
+      name: formState.name,
+      email: formState.email,
+      pass: formState.pass,
+      role: 'USER_ROLE',
+    };
+    const resp = await registerUser(user);
+    console.log(resp);
+  };
   return (
     <div className='flex flex-col items-center justify-center'>
-      <h1 className='text-3xl font-bold'>Create an account</h1>
-      <div className='flex flex-col m-8'>
-        <div className='flex flex-col'>
-          <label className='text-lg'>Your full name</label>
-          <input
-            className='mt-3 text-black p-1 font-semibold rounded-md border-solid border-red-600 border-2'
-            placeholder='userVector'
-            type={'text'}
-          />
-          <p className='text-red-600 '>This fiel is required*</p>
-        </div>
-        <div className='flex flex-col'>
-          <label className='text-lg'>Your username</label>
-          <input
-            className='mt-3 text-black p-1 font-semibold rounded-md border-solid border-red-600 border-2'
-            placeholder='userVector'
-            type={'text'}
-          />
-          <p className='text-red-600 '>This fiel is required*</p>
-        </div>
-        <div className='flex flex-col'>
-          <label className='text-lg'>Your email</label>
-          <input
-            className='mt-3 text-black p-1 font-semibold rounded-md border-solid border-red-600 border-2'
-            placeholder='userVector'
-            type={'email'}
-          />
-          <p className='text-red-600 '>This fiel is required*</p>
-        </div>
-        <div className='flex flex-col'>
-          <label className='text-lg'>Your password</label>
-          <input
-            className='mt-3 text-black p-1 font-semibold rounded-md border-solid border-red-600 border-2'
+      <form
+        onSubmit={onSubmit}
+        className='flex flex-col items-center justify-center'>
+        <h1 className='text-3xl font-bold'>Create an account</h1>
+        <div className='m-8 flex flex-col gap-6'>
+          <TextField
+            label='Your name'
+            type='text'
             placeholder='Password'
-            type={'password'}
+            name='name'
+            value={name}
+            onChange={onInputChange}
+            error={!!nameValid && formSubmitted}
+            helperText={nameValid}
           />
-          <p className='text-red-600'>This fiel is required*</p>
+          <TextField
+            label='Your email'
+            type='text'
+            placeholder='vector@gmail.com'
+            name='email'
+            value={email}
+            onChange={onInputChange}
+            error={!!emailValid && formSubmitted}
+            helperText={emailValid}
+          />
+          <TextField
+            label='Your password'
+            type='password'
+            placeholder='Password'
+            name='pass'
+            value={pass}
+            onChange={onInputChange}
+            error={!!passValid && formSubmitted}
+            helperText={passValid}
+          />
         </div>
-      </div>
-      <button className='bg-violet-800 rounded-md w-40 hover:bg-violet-900 font-medium'>
-        Create account
-      </button>
-      <div className='flex flex-r mt-3 '>
-        <p className='text-white opacity-70 m-1'>
-          do you have an account?
-          <button
-            className='text-violet-600 m-1'
-            onClick={() => setActive(!active)}>
-            Sign here
-          </button>
-        </p>
-      </div>
+        <Button
+          disabled={isChecking}
+          type='submit'
+          variant='contained'
+          fullWidth>
+          Create
+        </Button>
+        <Grid item xs={8} display={!!errorMessage ? '' : 'none'}>
+          <Alert severity='error'>{errorMessage}</Alert>
+        </Grid>
+        <div className='flex-r mt-3 flex '>
+          <p className='m-1 text-black opacity-70'>
+            do you have an account?
+            <button
+              className='m-1 text-blue-600'
+              onClick={() => setActive(!active)}>
+              Sign here
+            </button>
+          </p>
+        </div>
+      </form>
     </div>
   );
 };

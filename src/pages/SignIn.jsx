@@ -6,7 +6,7 @@ export const SignIn = () => {
 
   return (
     <div className='mt-20 flex h-full flex-col items-center justify-center'>
-      <div className='flex flex-col items-center justify-center rounded-md border border-solid border-violet-800 p-9'>
+      <div className='flex flex-col items-center justify-center rounded-md border border-solid border-blue-800 p-9'>
         {!active ? (
           <Create active={active} setActive={setActive} />
         ) : (

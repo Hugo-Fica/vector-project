@@ -1,42 +1,83 @@
-export const Login = (active, setActive) => {
+import { Alert, Button, Grid, TextField } from '@mui/material';
+import { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
+import { startLogin } from '../../store/auth/thunks';
+
+const formValidations = {
+  email: [(value) => value.length > 1, 'This field is required'],
+  pass: [(value) => value.length > 1, 'This field is required'],
+};
+const formData = {
+  email: '',
+  pass: '',
+};
+
+export const Login = ({ active, setActive }) => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const { status, errorMessage } = useSelector((state) => state.auth);
+  const isChecking = useMemo(() => status === 'checking', [status]);
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+  const { email, pass, onInputChange, emailValid, passValid, formState } =
+    useForm(formData, formValidations);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setFormSubmitted(true);
+    const user = {
+      email: formState.email,
+      pass: formState.pass,
+    };
+    dispatch(startLogin(user));
+    nav('/home');
+  };
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <h1 className='text-3xl font-bold'>Welcome to Vectors</h1>
       <div className='flex flex-col items-center justify-center'>
-        <div className='flex flex-col m-8'>
+        <div className='m-8 flex flex-col gap-6'>
           <div className='flex flex-col'>
-            <label className='text-lg'>Your username</label>
-            <input
-              className='mt-3 text-black p-1 font-semibold rounded-md border-solid border-red-600 border-2'
-              placeholder='userVector'
-              type={'text'}
+            <TextField
+              label='Email'
+              type='text'
+              placeholder='Email'
+              fullWidth
+              name='email'
+              value={email}
+              onChange={onInputChange}
+              error={!!emailValid && formSubmitted}
+              helperText={emailValid}
             />
-            <p className='text-red-600 '>This fiel is required*</p>
           </div>
           <div className='flex flex-col'>
-            <label className='text-lg'>Your password</label>
-            <input
-              className='mt-3 text-black p-1 font-semibold rounded-md border-solid border-red-600 border-2'
+            <TextField
+              label='Password'
+              type='password'
               placeholder='Password'
-              type={'password'}
+              fullWidth
+              name='pass'
+              value={pass}
+              onChange={onInputChange}
+              error={!!passValid && formSubmitted}
+              helperText={passValid}
             />
-            <p className='text-red-600'>This fiel is required*</p>
           </div>
         </div>
-        <button className='bg-violet-800 rounded-md w-24 hover:bg-violet-900 font-medium'>
-          LogIn
-        </button>
-        <div className='flex flex-r mt-3 '>
-          <p className='text-white opacity-70 m-1'>
-            dont have an account?
-            <button
-              className='text-violet-600 m-1'
-              onClick={() => setActive(!active)}>
-              Create here
-            </button>
-          </p>
-        </div>
+        <Grid container display={!!errorMessage ? '' : 'none'} sx={{ mt: 1 }}>
+          <Grid item xs={6}>
+            <Alert severity='error'>{errorMessage}</Alert>
+          </Grid>
+        </Grid>
+        <Button
+          disabled={isChecking}
+          type='submit'
+          variant='contained'
+          fullWidth>
+          Login
+        </Button>
       </div>
-    </div>
+    </form>
   );
 };

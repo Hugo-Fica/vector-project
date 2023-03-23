@@ -17,5 +17,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'array-callback-return': 'off',
     'react/prop-types': 'off',
+    'no-extra-boolean-cast': 'off',
   },
 };
